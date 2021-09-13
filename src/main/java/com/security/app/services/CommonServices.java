@@ -12,6 +12,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Service
 public class CommonServices {
     @Autowired
@@ -24,8 +27,12 @@ public class CommonServices {
     AuthenticationManager authenticationManager;
 
     public void saveUser(Person person, Credentials credentials) {
+        Set<Roles> roles = new HashSet<Roles>();
+       // roles.add(Roles.ADMIN);
+        roles.add(Roles.USERS);
+
         credentials.setPassword(passwordEncoder.encode(credentials.getPassword()));
-        credentials.setRoles(Roles.USERS);
+        credentials.setRoles(roles);
         credentials.setAccountNonExpired(true);
         person.setCredentials(credentials);
         userRepository.save(person);

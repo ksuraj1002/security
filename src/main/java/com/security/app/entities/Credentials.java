@@ -3,6 +3,7 @@ package com.security.app.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Data
@@ -14,8 +15,9 @@ public class Credentials {
     public String password;
     public boolean isAccountNonExpired;
 
+    @ElementCollection(targetClass = Roles.class)
     @Enumerated(EnumType.STRING)
-    public Roles roles;
+    public Set<Roles> roles;
 
     @OneToOne(mappedBy = "credentials")
     public Person person;

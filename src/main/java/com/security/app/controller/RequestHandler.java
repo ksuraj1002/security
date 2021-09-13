@@ -34,6 +34,6 @@ public class RequestHandler {
     @GetMapping(value={"/dashboard"})
     public String getDashboard(Principal principal){
         String roles=principal.toString().substring(principal.toString().lastIndexOf("[")+1,principal.toString().lastIndexOf("]]"));
-        return "redirect:/"+roles.toLowerCase()+"/dashboard";
+        return "redirect:/"+"users"+"/dashboard";
     }
 }

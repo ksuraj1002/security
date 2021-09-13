@@ -8,8 +8,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 public class UsersPrincipal implements UserDetails, Serializable {
@@ -39,8 +41,16 @@ public class UsersPrincipal implements UserDetails, Serializable {
     }
 
     public static UsersPrincipal createPrincipal(Person person) {
+     //   roles=[USERS, ADMIN]
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(person.getCredentials().getRoles().toString()));
+        //authorities.add(new SimpleGrantedAuthority(person.getCredentials().getRoles().toString()));
+        System.out.println(person.getCredentials().getRoles().toString().split(","));
+        for(Roles roles:person.getCredentials().getRoles()){
+            GrantedAuthority authority=new SimpleGrantedAuthority(roles.toString());
+            authorities.add(authority);
+        }
+        //authorities= Arrays.stream(person.getCredentials().getRoles())
+               // .stream(Arrays.asList(person.getCredentials().getRoles().toArray())).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
         return new UsersPrincipal(person.getName(),person.getAge(),person.getQualification(),person.getCredentials().getUserName(),authorities,person.getCredentials().getPassword(),person.getCredentials().isAccountNonExpired);
     }
 

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <div>
+            <h2>Welcome to Spring Security....</h2>
+        </div>
+        <div>
+            <form action="/register" method="post" enctype="multipart/form-data">
+              <div th:object="${person}">
+                Name: <input type="text" name="name" /> </br> </br>
+                Age: <input type="text" name="age" />  </br> </br>
+                Qualifaction: <input type="text" name="qualification" /> </br> </br>
+              </div>
+                <div th:object="${credential}">
+                   Username: <input type="text" name="userName" /> </br> </br>
+                   Password: <input type="password" name="password" /> </br> </br>
+                </div>
+                <div> <input type="submit" value="Register Here" /> </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

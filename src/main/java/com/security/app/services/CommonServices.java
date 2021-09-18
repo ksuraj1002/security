@@ -32,6 +32,7 @@ public class CommonServices {
         roles.add(Roles.USERS);
 
         credentials.setPassword(passwordEncoder.encode(credentials.getPassword()));
+        credentials.setDefaultUrl("/users/dashboard");
         credentials.setRoles(roles);
         credentials.setAccountNonExpired(true);
         person.setCredentials(credentials);

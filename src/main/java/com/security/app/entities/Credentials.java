@@ -13,9 +13,10 @@ public class Credentials {
     public Long id;
     public String userName;
     public String password;
+    public String defaultUrl;
     public boolean isAccountNonExpired;
 
-    @ElementCollection(targetClass = Roles.class)
+    @ElementCollection(targetClass = Roles.class,fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     public Set<Roles> roles;
 

@@ -20,6 +20,7 @@ public class UsersPrincipal implements UserDetails, Serializable {
     public Float age;
     public String qualification;
     public String userName;
+    public String defaultUrl;
 
     @JsonIgnore
     private boolean isAccountNonExpired;
@@ -30,7 +31,7 @@ public class UsersPrincipal implements UserDetails, Serializable {
     @JsonIgnore
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UsersPrincipal(String name, Float age, String qualification, String userName, Collection<? extends GrantedAuthority> authorities,String password,boolean isAccountNonExpired) {
+    public UsersPrincipal(String name, Float age, String qualification, String userName, Collection<? extends GrantedAuthority> authorities,String password,boolean isAccountNonExpired,String defaultUrl) {
         this.name = name;
         this.age = age;
         this.qualification = qualification;
@@ -38,20 +39,21 @@ public class UsersPrincipal implements UserDetails, Serializable {
         this.authorities = authorities;
         this.password=password;
         this.isAccountNonExpired=isAccountNonExpired;
+        this.defaultUrl=defaultUrl;
     }
 
     public static UsersPrincipal createPrincipal(Person person) {
      //   roles=[USERS, ADMIN]
         List<GrantedAuthority> authorities = new ArrayList<>();
         //authorities.add(new SimpleGrantedAuthority(person.getCredentials().getRoles().toString()));
-        System.out.println(person.getCredentials().getRoles().toString().split(","));
+      //  System.out.println(person.getCredentials().getRoles().toString().split(","));
         for(Roles roles:person.getCredentials().getRoles()){
             GrantedAuthority authority=new SimpleGrantedAuthority(roles.toString());
             authorities.add(authority);
         }
         //authorities= Arrays.stream(person.getCredentials().getRoles())
                // .stream(Arrays.asList(person.getCredentials().getRoles().toArray())).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
-        return new UsersPrincipal(person.getName(),person.getAge(),person.getQualification(),person.getCredentials().getUserName(),authorities,person.getCredentials().getPassword(),person.getCredentials().isAccountNonExpired);
+        return new UsersPrincipal(person.getName(),person.getAge(),person.getQualification(),person.getCredentials().getUserName(),authorities,person.getCredentials().getPassword(),person.getCredentials().isAccountNonExpired,person.getCredentials().getDefaultUrl());
     }
 
 

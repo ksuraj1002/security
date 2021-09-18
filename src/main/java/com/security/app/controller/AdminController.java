@@ -16,4 +16,13 @@ public class AdminController {
         mv.setViewName("/admin/dashboard");
         return mv;
     }
+
+    @GetMapping(value={"/addedvalue"})
+    public ModelAndView getAddedValue(Principal principal, ModelAndView mv){
+        int x =9/2;
+        mv.setViewName("/admin/addedvalue");
+        mv.addObject("res",x);
+        return mv;
+    }
+
 }

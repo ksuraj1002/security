@@ -28,9 +28,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .formLogin()
-                .defaultSuccessUrl("/dashboard")
+                .defaultSuccessUrl("/dashboard").failureUrl("/loginPage?error")
                 .and()
-                .exceptionHandling().accessDeniedPage("/failure");
+                .exceptionHandling().accessDeniedPage("/access_denied");
 
         http.csrf().disable();
         http.headers().frameOptions().disable();
